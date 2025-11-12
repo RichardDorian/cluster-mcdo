@@ -1,14 +1,13 @@
 #!/bin/bash -e
 
-if [[ -z $GITLAB_TOKEN ]]; then
-  echo "Please provide GITLAB_TOKEN env variable"
+if [[ -z $GITHUB_TOKEN ]]; then
+  echo "Please provide GITHUB_TOKEN env variable"
   exit 1
 fi
 
-flux bootstrap gitlab \
+flux bootstrap github \
   --token-auth \
-  --hostname=gitlab.umontpellier.polytech.fr \
-  --owner=dorian.richard \
+  --owner=richarddorian \
   --repository=cluster-mcdo \
   --branch=main \
   --path=clusters/production \
