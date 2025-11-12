@@ -5,6 +5,8 @@ if [[ -z $GITHUB_TOKEN ]]; then
   exit 1
 fi
 
+flux check --pre
+
 flux bootstrap github \
   --token-auth \
   --owner=richarddorian \
