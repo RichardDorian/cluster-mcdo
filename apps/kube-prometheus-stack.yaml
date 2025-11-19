@@ -20,6 +20,9 @@ spec:
   values:
     alertmanager:
       enabled: false
+    grafana:
+      adminUser: admin
+      adminPassword: admin
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
