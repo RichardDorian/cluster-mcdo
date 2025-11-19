@@ -20,4 +20,4 @@ spec:
     replicaCount: 2
     minecraftProxy:
       type: VELOCITY
-      velocityVersion: 3.4.0
+      velocityVersion: 1.1.0
