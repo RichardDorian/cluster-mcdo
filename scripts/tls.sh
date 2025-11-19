@@ -2,7 +2,7 @@
 
 CERT="$1"
 KEY="$2"
-NAMESPACE="kube-system"
+NAMESPACES=("kube-system" "monitoring")
 SECRET_NAME="cloudflare-origin-cert"
 
 if [[ $# -lt 2 ]]; then
@@ -10,7 +10,14 @@ if [[ $# -lt 2 ]]; then
   exit 1
 fi
 
-kubectl create secret tls "$SECRET_NAME" \
-  --cert="$CERT" \
-  --key="$KEY" \
-  -n "$NAMESPACE"
+echo "Creating secret '$SECRET_NAME' in ${#NAMESPACES[@]} namespace(s)..."
+
+for NAMESPACE in "${NAMESPACES[@]}"; do
+  echo "  → $NAMESPACE"
+  kubectl create secret tls "$SECRET_NAME" \
+    --cert="$CERT" \
+    --key="$KEY" \
+    -n "$NAMESPACE"
+done
+
+echo "✓ Secret created successfully in all namespaces"
