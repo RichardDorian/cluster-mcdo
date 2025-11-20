@@ -17,7 +17,8 @@ spec:
       interval: 5m
   releaseName: velocity
   values:
-    replicaCount: 2
+    image:
+      repository: itzg/mc-proxy
     minecraftProxy:
       type: VELOCITY
       velocityVersion: 1.1.0
