@@ -1,0 +1,107 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mcdo-velocity
+  namespace: minecraft
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: minecraft-proxy
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server-charts
+        namespace: minecraft
+      interval: 5m
+  releaseName: mcdo-velocity
+  values:
+    image:
+      repository: itzg/mc-proxy
+      tag: java25
+    minecraftProxy:
+      type: VELOCITY
+      velocityVersion: 3.4.0-SNAPSHOT
+      config: |-
+        config-version = "2.7"
+
+        show-max-players = 50
+        player-info-forwarding-mode = "modern"
+
+        [servers]
+        advanced = "mcdo-advanced.minecraft.svc.cluster.local"
+
+        try = [
+          "advanced"
+        ]
+
+        [advanced]
+        announce-proxy-commands = false
+        enable-reuse-port = true
+      velocityForwardingSecret: Wr8Uw0WIU26GmX
+    serviceAnnotations:
+      "mc-router.itzg.me/externalServerName": "mcdo.polydo.dev"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mcdo-advanced
+  namespace: minecraft
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: minecraft
+      version: 5.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server-charts
+        namespace: minecraft
+      interval: 5m
+  releaseName: mcdo-advanced
+  values:
+    image:
+      tag: java25-graalvm
+    fullnameOverride: mcdo-advanced
+    resources:
+      requests:
+        memory: 8192Mi
+        cpu: 2000m
+    minecraftServer:
+      eula: TRUE
+      version: 1.21.10
+      type: FABRIC
+      fabricLauncherVersion: 1.1.0
+      fabricLoaderVersion: 0.18.1
+      difficulty: hard
+      viewDistance: 12
+      memory: 8192M
+      modrinth:
+        projects:
+          - fabric:c2me-fabric:release
+          - fabric:controlify:release
+          - fabric:ferrite-core:release
+          - fabric:lithium:release
+          - fabric:modernfix-mvus:release
+          - fabric:scalablelux:release
+          - fabric:simple-voice-chat:release
+          - fabric:sound-physics-remastered:pDo1ElL2
+          - fabric:vmp-fabric:nCucW7Sl
+          - fabric:xaeros-world-map:release
+          - fabric:fabricproxy-lite:release
+          - datapack:terralith:release
+          - datapack:dungeons-and-taverns:release
+          - datapack:dungeons-and-taverns-ancient-city-overhaul:release
+          - datapack:dungeons-and-taverns-desert-temple-overhaul:release
+          - datapack:dnt-enchant-disabler:release
+          - datapack:dungeons-and-taverns-jungle-temple-overhaul:release
+          - datapack:dungeons-and-taverns-nether-fortress-overhaul:release
+          - datapack:dungeons-and-taverns-ocean-monument-overhaul:release
+          - datapack:dungeons-and-taverns-pillager-outpost-overhaul:release
+          - datapack:dungeons-and-taverns-stronghold-overhaul:release
+          - datapack:dungeons-and-taverns-swamp-hut-overhaul:release
+          - datapack:dungeons-and-taverns-woodland-mansion-overhaul:release
+        downloadDependencies: required
