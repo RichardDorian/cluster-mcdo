@@ -20,7 +20,7 @@ spec:
     image:
       tag: 1.36.2
     services:
-      minecaft:
+      minecraft:
         type: LoadBalancer
         port: 80
     minecraftRouter:
