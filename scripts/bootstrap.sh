@@ -8,7 +8,8 @@ fi
 flux check --pre
 
 flux bootstrap github \
-  --owner=RichardDorian \
+  --token-auth \
+  --owner=do-2k25-28 \
   --repository=cluster-mcdo \
   --branch=main \
   --path=./cluster \
