@@ -24,6 +24,7 @@ spec:
     minecraftProxy:
       type: VELOCITY
       velocityVersion: 3.4.0-SNAPSHOT
+      configFilePath: /server/velocity.toml
       config: |-
         config-version = "2.7"
 
@@ -41,6 +42,7 @@ spec:
         announce-proxy-commands = false
         enable-reuse-port = true
       velocityForwardingSecret: Wr8Uw0WIU26GmX
+      velocityForwardingSecretFilePath: /server/forwarding.secret
     serviceAnnotations:
       "mc-router.itzg.me/externalServerName": "mcdo.polydo.dev"
 ---
