@@ -250,8 +250,8 @@ spec:
     fullnameOverride: mcdo-advanced
     resources:
       requests:
-        memory: 8192Mi
-        cpu: 2000m
+        memory: 16384Mi
+        cpu: 5000m
     minecraftServer:
       eula: TRUE
       version: 1.21.10
@@ -260,7 +260,7 @@ spec:
       fabricLoaderVersion: 0.18.1
       difficulty: hard
       viewDistance: 12
-      memory: 8192M
+      memory: 16384M
       modrinth:
         projects:
           - fabric:c2me-fabric:release
