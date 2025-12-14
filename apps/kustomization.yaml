@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - kube-prometheus-stack.yaml
   - minecraft.yaml
-  - messagerie.yaml
+  - instant-chat.yaml
   - uptime-kuma.yaml

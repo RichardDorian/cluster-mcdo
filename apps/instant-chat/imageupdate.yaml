@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
-  name: messagerie
+  name: do-instant-chat
   namespace: flux-system
 spec:
   interval: 5m
@@ -16,9 +16,9 @@ spec:
       author:
         email: flux-bot@polydo.dev
         name: FluxCD Image Automation
-      messageTemplate: "chore(images): update messagerie to {{range .Updated.Images}}{{.NewTag}}{{end}}"
+      messageTemplate: "chore(images): update do-instant-chat to {{range .Updated.Images}}{{.NewTag}}{{end}}"
     push:
       branch: main
   update:
-    path: ./apps/messagerie
+    path: ./apps/instant-chat
     strategy: Setters

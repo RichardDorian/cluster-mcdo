@@ -5,4 +5,4 @@ resources:
   - imagerepository.yaml
   - imagepolicy.yaml
   - imageupdate.yaml
-  - messagerie.yaml
+  - instant-chat.yaml

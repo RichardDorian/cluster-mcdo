@@ -1,11 +1,11 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: messagerie
-  namespace: messagerie
+  name: do-instant-chat
+  namespace: do-instant-chat
 spec:
   imageRepositoryRef:
-    name: messagerie
+    name: do-instant-chat
   policy:
     alphabetical:
       order: asc

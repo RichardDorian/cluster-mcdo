@@ -1,26 +1,26 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: messagerie
-  namespace: messagerie
+  name: do-instant-chat
+  namespace: do-instant-chat
 spec:
   interval: 1h
   timeout: 5m
-  releaseName: messagerie
+  releaseName: do-instant-chat
   chart:
     spec:
       chart: helm/messagerie
       sourceRef:
         kind: GitRepository
-        name: messagerie
-        namespace: messagerie
+        name: do-instant-chat
+        namespace: do-instant-chat
       interval: 5m
   values:
     imagePullSecrets:
       - name: gitlab-registry
     image:
       repository: gitlab.polytech.umontpellier.fr:5050/dev-web/messagerie-instantane
-      tag: latest # {"$imagepolicy": "messagerie:messagerie"}
+      tag: latest # {"$imagepolicy": "do-instant-chat:do-instant-chat"}
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP

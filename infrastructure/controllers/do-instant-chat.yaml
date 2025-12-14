@@ -1,8 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: messagerie
-  namespace: messagerie
+  name: do-instant-chat
+  namespace: do-instant-chat
 spec:
   interval: 1h
   url: https://gitlab.polytech.umontpellier.fr/dev-web/messagerie-instantane.git

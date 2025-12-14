@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-messagerie
+  name: apps-instant-chat
   namespace: flux-system
 spec:
   dependsOn:
@@ -12,6 +12,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/messagerie
+  path: ./apps/instant-chat
   prune: true
   wait: true
