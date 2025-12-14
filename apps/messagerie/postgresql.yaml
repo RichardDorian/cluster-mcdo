@@ -17,9 +17,9 @@ spec:
       interval: 5m
   values:
     auth:
-      postgresPassword: mfa-debian
-      username: admin
-      password: mfa-debian
+      postgresPassword: RfHmdwZ2Wt3sNq_7Pcsvq6y3KmtN0s4JKyGeq_WDkAMgKoFvy1rnsAeA6kS_mbDez19RZDcZxCzjpxt6O-AaXA
+      username: messagerie_app
+      password: VjKvdXEJ51r4g_jfSgZs9kCHQi0_7q-SmEsy88me8R-2eacl1JSdONfhnzDc9lVZbCRXyeyiyqhfHEN4pX11Ig
       database: instant_mess
     primary:
       persistence:
