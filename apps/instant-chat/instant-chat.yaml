@@ -1,0 +1,80 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: do-instant-chat
+  namespace: do-instant-chat
+spec:
+  interval: 1h
+  timeout: 5m
+  releaseName: do-instant-chat
+  chart:
+    spec:
+      chart: helm/messagerie
+      sourceRef:
+        kind: GitRepository
+        name: do-instant-chat
+        namespace: do-instant-chat
+      interval: 5m
+  values:
+    imagePullSecrets:
+      - name: gitlab-registry
+    image:
+      repository: gitlab.polytech.umontpellier.fr:5050/dev-web/messagerie-instantane
+      tag: latest # {"$imagepolicy": "do-instant-chat:do-instant-chat"}
+      pullPolicy: IfNotPresent
+    service:
+      type: ClusterIP
+      apiPort: 3000
+      frontPort: 8081
+    env:
+      apiPort: 3000
+      frontPort: 8081
+      frontOrigin: https://instant-chat.polydo.dev
+      frontOrigins: https://instant-chat.polydo.dev
+      database:
+        user: instant_chat_app
+        name: instant_chat
+      extraEnv:
+        - name: COOKIE_SECURE
+          value: "true"
+        - name: COOKIE_SAMESITE
+          value: "None"
+        - name: COOKIE_DOMAIN
+          value: ".polydo.dev"
+    secrets:
+      create: true
+      existingSecret: instant-chat-secret
+      jwtSecret: wDmqkXPI_N4-lH5H6dbVlcEkpAYdofuSbxDl7Aa1w_hJst_TreYPmHeZdmrH4Xh8e6MiopuLjUwfDxXVA747Yg
+      pepper: vns1BPZsxYNx1lZI4oVT-IEt9w8m9eqVRWqeSq7h7i-giViJH815HT3lSjgMRZVfzYqac4thefaXxtiIzN9GuQ
+      databasePassword: pUXxb4TkefHz0kXC-59jgWP-gQQAyaYRkYHWqODF_wNotPcEuKTT-6vShTTONQtpGHbk_pLK7ANSVe7keCFhtw
+      databaseAdminPassword: 9TuVVq0swCdKfRjJALAqaEIFGAX-jk5FpYH2OViEFtrwByHMlAO9j923xo37Mc6m9O7WFe2sEk3w9JESSACEqQ
+    postgresql:
+      enabled: true
+      auth:
+        username: instant_chat_app
+        database: instant_chat
+        existingSecret: instant-chat-secret
+        password: pUXxb4TkefHz0kXC-59jgWP-gQQAyaYRkYHWqODF_wNotPcEuKTT-6vShTTONQtpGHbk_pLK7ANSVe7keCFhtw
+        postgresPassword: 9TuVVq0swCdKfRjJALAqaEIFGAX-jk5FpYH2OViEFtrwByHMlAO9j923xo37Mc6m9O7WFe2sEk3w9JESSACEqQ
+        secretKeys:
+          adminPasswordKey: POSTGRES_PASSWORD
+          userPasswordKey: DATABASE_PASSWORD
+      primary:
+        persistence:
+          size: 20Gi
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      tls:
+        - secretName: cloudflare-origin-cert
+          hosts:
+            - instant-chat.polydo.dev
+            - instant-chat-api.polydo.dev
+      frontend:
+        host: instant-chat.polydo.dev
+        path: /
+      api:
+        host: instant-chat-api.polydo.dev
+        path: /

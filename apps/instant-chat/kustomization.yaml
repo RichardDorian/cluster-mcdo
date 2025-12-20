@@ -1,7 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - kube-prometheus-stack.yaml
-  - minecraft.yaml
+  - registry-secret.yaml
+  - imagerepository.yaml
+  - imagepolicy.yaml
+  - imageupdate.yaml
   - instant-chat.yaml
-  - uptime-kuma.yaml
