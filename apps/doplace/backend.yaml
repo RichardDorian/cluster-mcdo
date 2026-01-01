@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: doplace
+  labels:
+    app: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: doplace
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/do-2k25-28/do-place-backend:v0.0.1-beta.2 # {"$imagepolicy": "flux-system:backend"}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: REDIS_HOST
+              value: redis.doplace.svc.cluster.local
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_USER
+              value: doplace
+            - name: REDIS_PASSWORD
+              value: PUNVep5tckSJl2X0yiblViueXQh6a7yH
+            - name: FRONTEND_ORIGIN
+              value: https://place.polydo.dev
+            - name: JWT_SECRET
+              value: G9EHIZPNG6U5wc5k0E2OQLN3YHs3AALK
+            - name: HASH_SECRET
+              value: gEsv5ayk1XdnjoJjjpyr56sDGctyI2mI
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 200m
+            limits:
+              memory: 512Mi
+              cpu: 500m

@@ -2,7 +2,7 @@
 
 CERT="$1"
 KEY="$2"
-NAMESPACES=("kube-system" "monitoring")
+NAMESPACES=("kube-system" "monitoring" "doplace")
 SECRET_NAME="cloudflare-origin-cert"
 
 if [[ $# -lt 2 ]]; then
