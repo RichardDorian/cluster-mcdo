@@ -55,6 +55,8 @@ spec:
               value: G9EHIZPNG6U5wc5k0E2OQLN3YHs3AALK
             - name: HASH_SECRET
               value: gEsv5ayk1XdnjoJjjpyr56sDGctyI2mI
+            - name: CLUSTER
+              value: "true"
           resources:
             requests:
               memory: 256Mi
