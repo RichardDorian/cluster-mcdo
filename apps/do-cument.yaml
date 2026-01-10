@@ -32,12 +32,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`staging-document`) && PathPrefix(`/api`)
+    - match: Host(`staging-document.polydo.dev`) && PathPrefix(`/api`)
       kind: Rule
       services:
         - name: backend
           port: 8000
-    - match: Host(`staging-document`) && PathPrefix(`/`)
+    - match: Host(`staging-document.polydo.dev`) && PathPrefix(`/`)
       kind: Rule
       services:
         - name: frontend
