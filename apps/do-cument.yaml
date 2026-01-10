@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: do-cument
+spec:
+  type: ExternalName
+  externalName: phoenix.dopolytech.fr
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: do-cument
+spec:
+  type: ExternalName
+  externalName: phoenix.dopolytech.fr
+  ports:
+    - port: 8001
+      targetPort: 8001
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: do-cument
+  namespace: do-cument
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`staging-document`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: backend
+          port: 8000
+    - match: Host(`staging-document`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: frontend
+          port: 8001
+  tls:
+    secretName: cloudflare-origin-cert
