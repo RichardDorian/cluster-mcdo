@@ -5,11 +5,20 @@ metadata:
   name: backend
   namespace: do-cument
 spec:
-  type: ExternalName
-  externalName: phoenix.dopolytech.fr
   ports:
     - port: 8000
       targetPort: 8000
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: backend
+  namespace: do-cument
+subsets:
+  - addresses:
+      - ip: 162.38.112.145
+    ports:
+      - port: 8000
 ---
 apiVersion: v1
 kind: Service
@@ -17,11 +26,20 @@ metadata:
   name: frontend
   namespace: do-cument
 spec:
-  type: ExternalName
-  externalName: phoenix.dopolytech.fr
   ports:
     - port: 8080
       targetPort: 8080
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: frontend
+  namespace: do-cument
+subsets:
+  - addresses:
+      - ip: 162.38.112.145
+    ports:
+      - port: 8080
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
